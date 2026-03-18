@@ -88,8 +88,9 @@ create_icon() {
     echo "✓ Created $filename"
 }
 
-# Generate all icon sizes (toolbar needs 16, 32; store needs 48, 128)
+# Generate all icon sizes (toolbar typically uses 24/48 or 19/38 on different systems)
 create_icon 16
+create_icon 24
 create_icon 32
 create_icon 48
 create_icon 128
