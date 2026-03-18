@@ -20,17 +20,18 @@ create_icon() {
     if [ $size -eq 16 ]; then
         echo "Creating $filename (${size}x${size}) - ultra-bold toolbar version..."
         
-        # Maximize every element - fill the entire canvas
+        # Maximum fill - use entire canvas with thick, solid shapes
         convert -size ${size}x${size} xc:none \
             -fill "$BLUE" \
-            -draw "roundrectangle 0,1 13,15 2,2" \
-            -draw "polygon 13,4 16,8 13,12" \
+            -draw "roundrectangle 0,0 14,16 1,1" \
+            -draw "polygon 14,3 16,8 14,13" \
             -fill "$WHITE" \
-            -draw "circle 6,8 9,8" \
+            -draw "circle 7,8 10,8" \
             -fill "$GREEN" \
             -draw "circle 13,13 16,13" \
-            -stroke "$WHITE" -strokewidth 2.5 -fill none \
-            -draw "path 'M 11,13 L 12,14.5 L 15,11.5'" \
+            -stroke "$WHITE" -strokewidth 3 -fill none \
+            -strokelinecap round -strokelinejoin round \
+            -draw "path 'M 10.5,13 L 12,14.5 L 15.5,11'" \
             "$filename"
         
         echo "✓ Created $filename"
