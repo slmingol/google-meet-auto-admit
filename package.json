@@ -1,0 +1,22 @@
+{
+  "name": "google-meet-auto-admit",
+  "version": "1.0.0",
+  "description": "Chrome extension that automatically admits people to Google Meet calls",
+  "scripts": {
+    "version:patch": "npm version patch --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node update-manifest-version.js",
+    "version:minor": "npm version minor --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node update-manifest-version.js",
+    "version:major": "npm version major --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node update-manifest-version.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smingolelli/google-meet-auto-admit.git"
+  },
+  "keywords": [
+    "chrome-extension",
+    "google-meet",
+    "auto-admit",
+    "meeting"
+  ],
+  "author": "",
+  "license": "MIT"
+}
