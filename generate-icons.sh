@@ -16,21 +16,21 @@ create_icon() {
     local size=$1
     local filename="icon${size}.png"
     
-    # For 16px, use a simpler, bolder design
+    # For 16px, use ultra-bold, maximized design for toolbar
     if [ $size -eq 16 ]; then
-        echo "Creating $filename (${size}x${size}) - simplified toolbar version..."
+        echo "Creating $filename (${size}x${size}) - ultra-bold toolbar version..."
         
-        # Use almost the entire canvas - minimal padding for maximum visibility
+        # Maximize every element - fill the entire canvas
         convert -size ${size}x${size} xc:none \
             -fill "$BLUE" \
-            -draw "roundrectangle 0,2 12,14 2,2" \
-            -draw "polygon 12,5 16,8 12,11" \
-            -fill "$DARKER_BLUE" \
+            -draw "roundrectangle 0,1 13,15 2,2" \
+            -draw "polygon 13,4 16,8 13,12" \
+            -fill "$WHITE" \
             -draw "circle 6,8 9,8" \
             -fill "$GREEN" \
-            -draw "circle 12,12 16,12" \
-            -stroke "$WHITE" -strokewidth 2 -fill none \
-            -draw "path 'M 10,12 L 11.5,13.5 L 14,11'" \
+            -draw "circle 13,13 16,13" \
+            -stroke "$WHITE" -strokewidth 2.5 -fill none \
+            -draw "path 'M 11,13 L 12,14.5 L 15,11.5'" \
             "$filename"
         
         echo "✓ Created $filename"
@@ -88,10 +88,8 @@ create_icon() {
     echo "✓ Created $filename"
 }
 
-# Generate all icon sizes (toolbar typically uses 24/48 or 19/38 on different systems)
+# Generate icon sizes that Chrome uses (16, 48, 128)
 create_icon 16
-create_icon 24
-create_icon 32
 create_icon 48
 create_icon 128
 
