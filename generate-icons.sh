@@ -20,17 +20,17 @@ create_icon() {
     if [ $size -eq 16 ]; then
         echo "Creating $filename (${size}x${size}) - simplified toolbar version..."
         
-        # Simplified design for toolbar visibility
+        # Use almost the entire canvas - minimal padding for maximum visibility
         convert -size ${size}x${size} xc:none \
             -fill "$BLUE" \
-            -draw "roundrectangle 1,3 11,13 2,2" \
-            -draw "polygon 11,6 15,8 11,10" \
+            -draw "roundrectangle 0,2 12,14 2,2" \
+            -draw "polygon 12,5 16,8 12,11" \
             -fill "$DARKER_BLUE" \
-            -draw "circle 6,8 8,8" \
+            -draw "circle 6,8 9,8" \
             -fill "$GREEN" \
-            -draw "circle 11,11 14,11" \
-            -stroke "$WHITE" -strokewidth 1.5 -fill none \
-            -draw "path 'M 9.5,11 L 10.5,12 L 12.5,10'" \
+            -draw "circle 12,12 16,12" \
+            -stroke "$WHITE" -strokewidth 2 -fill none \
+            -draw "path 'M 10,12 L 11.5,13.5 L 14,11'" \
             "$filename"
         
         echo "✓ Created $filename"
