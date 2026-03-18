@@ -16,7 +16,28 @@ create_icon() {
     local size=$1
     local filename="icon${size}.png"
     
-    # Scale-dependent measurements
+    # For 16px, use a simpler, bolder design
+    if [ $size -eq 16 ]; then
+        echo "Creating $filename (${size}x${size}) - simplified toolbar version..."
+        
+        # Simplified design for toolbar visibility
+        convert -size ${size}x${size} xc:none \
+            -fill "$BLUE" \
+            -draw "roundrectangle 1,3 11,13 2,2" \
+            -draw "polygon 11,6 15,8 11,10" \
+            -fill "$DARKER_BLUE" \
+            -draw "circle 6,8 8,8" \
+            -fill "$GREEN" \
+            -draw "circle 11,11 14,11" \
+            -stroke "$WHITE" -strokewidth 1.5 -fill none \
+            -draw "path 'M 9.5,11 L 10.5,12 L 12.5,10'" \
+            "$filename"
+        
+        echo "✓ Created $filename"
+        return
+    fi
+    
+    # Scale-dependent measurements for larger sizes
     local camera_width=$((size * 60 / 100))
     local camera_height=$((size * 45 / 100))
     local camera_x=$((size * 20 / 100))
