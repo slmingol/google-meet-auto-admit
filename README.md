@@ -115,4 +115,4 @@ MIT License - Feel free to modify and use as needed.
 
 ## Version
 
-Current version: 1.0.0
+Current version: 1.0.14
