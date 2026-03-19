@@ -10,16 +10,16 @@ fi
 
 echo "Creating icons from source-icon.png..."
 
-# Create 16x16 icon - make image 225% of canvas size
-convert source-icon.png -resize 36x36 -background none -gravity center -extent 16x16 icon16.png
+# Create 16x16 icon - make image 338% of canvas size
+convert source-icon.png -resize 54x54 -background none -gravity center -extent 16x16 icon16.png
 echo "✓ Created icon16.png"
 
-# Create 48x48 icon - make image 225% of canvas size
-convert source-icon.png -resize 108x108 -background none -gravity center -extent 48x48 icon48.png
+# Create 48x48 icon - make image 338% of canvas size
+convert source-icon.png -resize 162x162 -background none -gravity center -extent 48x48 icon48.png
 echo "✓ Created icon48.png"
 
-# Create 128x128 icon - make image 225% of canvas size
-convert source-icon.png -resize 288x288 -background none -gravity center -extent 128x128 icon128.png
+# Create 128x128 icon - make image 338% of canvas size
+convert source-icon.png -resize 432x432 -background none -gravity center -extent 128x128 icon128.png
 echo "✓ Created icon128.png"
 
 echo ""
