@@ -1,15 +1,16 @@
 #!/bin/bash
 # Generate icons for Google Meet Auto Admit extension using ImageMagick
 # Creates Google Meet camera icon with checkmark overlay
+# Optimized for maximum visibility in toolbar
 
 cd "$(dirname "$0")"
 
-# Colors
+# Colors - using bolder, more solid colors
 BLUE="#1a73e8"      # Google Meet blue
-DARKER_BLUE="#1557b0"  # Darker blue for shading
+DARKER_BLUE="#0d47a1"  # Much darker blue for contrast
 WHITE="#FFFFFF"
-GREEN="#34a853"     # Google green for checkmark
-BLACK="#000000"
+GREEN="#2e7d32"     # Darker green for better visibility
+LIGHT_GREEN="#4caf50"  # Lighter green for checkmark badge
 
 # Function to create an icon
 create_icon() {
@@ -38,47 +39,47 @@ create_icon() {
         return
     fi
     
-    # Scale-dependent measurements for larger sizes
-    local camera_width=$((size * 60 / 100))
-    local camera_height=$((size * 45 / 100))
-    local camera_x=$((size * 20 / 100))
-    local camera_y=$((size * 27 / 100))
-    local corner_radius=$((size / 16))
+    # Scale-dependent measurements for larger sizes - maximize canvas usage
+    local camera_width=$((size * 70 / 100))
+    local camera_height=$((size * 55 / 100))
+    local camera_x=$((size * 5 / 100))
+    local camera_y=$((size * 18 / 100))
+    local corner_radius=$((size / 12))
     if [ $corner_radius -lt 2 ]; then corner_radius=2; fi
     
-    # Lens measurements
-    local lens_cx=$((size * 35 / 100))
-    local lens_cy=$((size * 50 / 100))
-    local lens_radius=$((size * 12 / 100))
+    # Lens measurements - larger and more prominent
+    local lens_cx=$((size * 30 / 100))
+    local lens_cy=$((size * 45 / 100))
+    local lens_radius=$((size * 15 / 100))
     if [ $lens_radius -lt 2 ]; then lens_radius=2; fi
     
-    # Triangle (right side of camera)
+    # Triangle (right side of camera) - larger
     local tri_x1=$((camera_x + camera_width))
     local tri_y1=$((camera_y + camera_height / 3))
-    local tri_x2=$((tri_x1 + size / 5))
+    local tri_x2=$((size * 95 / 100))
     local tri_y2=$((camera_y + camera_height / 2))
     local tri_x3=$tri_x1
     local tri_y3=$((camera_y + camera_height * 2 / 3))
     
-    # Checkmark badge (bottom right)
-    local badge_size=$((size * 45 / 100))
-    local badge_x=$((size * 60 / 100))
-    local badge_y=$((size * 55 / 100))
-    local check_stroke=$((size / 18))
-    if [ $check_stroke -lt 2 ]; then check_stroke=2; fi
+    # Checkmark badge (bottom right) - larger and more prominent
+    local badge_size=$((size * 50 / 100))
+    local badge_x=$((size * 67 / 100))
+    local badge_y=$((size * 67 / 100))
+    local check_stroke=$((size / 10))
+    if [ $check_stroke -lt 3 ]; then check_stroke=3; fi
     
     echo "Creating $filename (${size}x${size})..."
     
-    # Create the icon with layers
+    # Create the icon with layers - maximize filled area
     convert -size ${size}x${size} xc:none \
         \( +clone -fill "$BLUE" \
            -draw "roundrectangle $camera_x,$camera_y $((camera_x + camera_width)),$((camera_y + camera_height)) $corner_radius,$corner_radius" \
            -draw "polygon $tri_x1,$tri_y1 $tri_x2,$tri_y2 $tri_x3,$tri_y3" \
-           -fill "$DARKER_BLUE" \
+           -fill "$WHITE" \
            -draw "circle $lens_cx,$lens_cy $((lens_cx + lens_radius)),$lens_cy" \
         \) \
         -composite \
-        \( +clone -fill "$GREEN" \
+        \( +clone -fill "$LIGHT_GREEN" \
            -draw "circle $badge_x,$badge_y $((badge_x + badge_size/2)),$badge_y" \
            -fill none -stroke "$WHITE" -strokewidth $check_stroke \
            -draw "path 'M $((badge_x - badge_size/6)),$badge_y L $((badge_x - badge_size/18)),$((badge_y + badge_size/6)) L $((badge_x + badge_size/4)),$((badge_y - badge_size/6))'" \

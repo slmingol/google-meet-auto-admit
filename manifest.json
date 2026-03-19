@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Auto Admit for Google Meet",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Automatically admits people to your Google Meet calls",
   "permissions": [
     "activeTab",
@@ -12,8 +12,12 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://meet.google.com/*"],
-      "js": ["content.js"],
+      "matches": [
+        "https://meet.google.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_idle"
     }
   ],
