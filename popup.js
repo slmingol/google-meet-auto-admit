@@ -2,6 +2,11 @@
 
 const toggle = document.getElementById('autoAdmitToggle');
 const statusDiv = document.getElementById('status');
+const versionDiv = document.getElementById('version');
+
+// Display version from manifest
+const manifest = chrome.runtime.getManifest();
+versionDiv.textContent = `v${manifest.version}`;
 
 // Load saved state
 if (chrome.storage && chrome.storage.sync) {
