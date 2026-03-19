@@ -1,73 +1,40 @@
 #!/bin/bash
 # Generate icons for Google Meet Auto Admit extension using ImageMagick
-# Creates Google Meet camera icon with checkmark overlay
-# Optimized for maximum visibility in toolbar
+# Creates Google "G" icon with checkmark overlay
 
 cd "$(dirname "$0")"
 
-# Colors - using bolder, more solid colors
-BLUE="#1a73e8"      # Google Meet blue
-DARKER_BLUE="#0d47a1"  # Much darker blue for contrast
+# Colors
+GOOGLE_BLUE="#4285f4"   # Google blue
 WHITE="#FFFFFF"
-GREEN="#2e7d32"     # Darker green for better visibility
-LIGHT_GREEN="#4caf50"  # Lighter green for checkmark badge
+GREEN="#34a853"         # Google green for checkmark
 
 # Function to create an icon
 create_icon() {
     local size=$1
     local filename="icon${size}.png"
     
-    # For 16px, use ultra-bold, maximized design for toolbar
-    if [ $size -eq 16 ]; then
-        echo "Creating $filename (${size}x${size}) - ultra-bold toolbar version..."
-        
-        # Maximum fill - use entire canvas with thick, solid shapes
-        convert -size ${size}x${size} xc:none \
-            -fill "$BLUE" \
-            -draw "roundrectangle 0,0 14,16 1,1" \
-            -draw "polygon 14,3 16,8 14,13" \
-            -fill "$WHITE" \
-            -draw "circle 7,8 10,8" \
-            -fill "$GREEN" \
-            -draw "circle 13,13 16,13" \
-            -stroke "$WHITE" -strokewidth 3 -fill none \
-            -strokelinecap round -strokelinejoin round \
-            -draw "path 'M 10.5,13 L 12,14.5 L 15.5,11'" \
-            "$filename"
-        
-        echo "✓ Created $filename"
-        return
-    fi
-    
     echo "Creating $filename (${size}x${size})..."
     
-    # Ultra-simple bold design - large solid camera with large checkmark
-    # Camera takes up 85% of canvas
-    local camera_width=$((size * 85 / 100))
-    local camera_height=$((size * 70 / 100))
-    local camera_x=$((size * 3 / 100))
-    local camera_y=$((size * 12 / 100))
-    local corner_radius=$((size / 10))
+    # Google G measurements - maximize size
+    local g_radius=$((size * 40 / 100))
+    local g_center=$((size / 2))
+    local g_stroke=$((size / 6))
+    if [ $g_stroke -lt 5 ]; then g_stroke=5; fi
     
-    # Large white circle on camera for contrast
-    local circle_cx=$((size * 32 / 100))
-    local circle_cy=$((size * 47 / 100))
-    local circle_radius=$((size * 18 / 100))
-    
-    # Large checkmark badge - 55% of icon size
-    local badge_radius=$((size * 28 / 100))
+    # Checkmark badge (bottom right)
+    local badge_radius=$((size * 30 / 100))
     local badge_cx=$((size * 72 / 100))
     local badge_cy=$((size * 72 / 100))
     local check_stroke=$((size / 9))
     if [ $check_stroke -lt 4 ]; then check_stroke=4; fi
     
-    # Create maximally bold icon
+    # Create bold Google G with checkmark
     convert -size ${size}x${size} xc:none \
-        -fill "$BLUE" \
-        -draw "roundrectangle $camera_x,$camera_y $((camera_x + camera_width)),$((camera_y + camera_height)) $corner_radius,$corner_radius" \
-        -fill "$WHITE" \
-        -draw "circle $circle_cx,$circle_cy $((circle_cx + circle_radius)),$circle_cy" \
-        -fill "$LIGHT_GREEN" \
+        -stroke "$GOOGLE_BLUE" -strokewidth $g_stroke -fill none \
+        -draw "arc $((g_center - g_radius)),$((g_center - g_radius)) $((g_center + g_radius)),$((g_center + g_radius)) 90,405" \
+        -draw "line $g_center,$((g_center - 2)) $((g_center + g_radius - g_stroke/2)),$((g_center - 2))" \
+        -fill "$GREEN" \
         -draw "circle $badge_cx,$badge_cy $((badge_cx + badge_radius)),$badge_cy" \
         -stroke "$WHITE" -strokewidth $check_stroke -fill none \
         -draw "path 'M $((badge_cx - badge_radius/2)),$badge_cy L $((badge_cx - badge_radius/6)),$((badge_cy + badge_radius/2)) L $((badge_cx + badge_radius/2)),$((badge_cy - badge_radius/3))'" \
@@ -83,4 +50,4 @@ create_icon 128
 
 echo ""
 echo "All icons created successfully!"
-echo "Icons feature Google Meet camera icon with green checkmark badge"
+echo "Icons feature Google G with green checkmark badge"
