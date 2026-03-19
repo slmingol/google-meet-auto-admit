@@ -22,12 +22,12 @@ create_icon() {
     local g_stroke=$((size / 6))
     if [ $g_stroke -lt 5 ]; then g_stroke=5; fi
     
-    # Checkmark badge (bottom right) - larger
-    local badge_radius=$((size * 38 / 100))
-    local badge_cx=$((size * 70 / 100))
-    local badge_cy=$((size * 70 / 100))
-    local check_stroke=$((size / 7))
-    if [ $check_stroke -lt 5 ]; then check_stroke=5; fi
+    # Checkmark badge (bottom right) - 50% bigger
+    local badge_radius=$((size * 57 / 100))
+    local badge_cx=$((size * 68 / 100))
+    local badge_cy=$((size * 68 / 100))
+    local check_stroke=$((size / 6))
+    if [ $check_stroke -lt 6 ]; then check_stroke=6; fi
     
     # Create bold Google G with checkmark
     convert -size ${size}x${size} xc:none \
