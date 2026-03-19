@@ -109,9 +109,9 @@ The extension includes custom-designed icons in three sizes:
 - `icon48.png` - 48×48 for extension management
 - `icon128.png` - 128×128 for Chrome Web Store
 
-Icons can be regenerated from `source-icon.png` using:
+Icons can be regenerated from `assets/source-icon.png` using:
 ```bash
-./create-icons-from-source.sh
+./scripts/create-icons-from-source.sh
 ```
 
 ## License

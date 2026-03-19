@@ -3,9 +3,9 @@
   "version": "1.0.14",
   "description": "Chrome extension that automatically admits people to Google Meet calls",
   "scripts": {
-    "version:patch": "npm version patch --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node update-manifest-version.js",
-    "version:minor": "npm version minor --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node update-manifest-version.js",
-    "version:major": "npm version major --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node update-manifest-version.js"
+    "version:patch": "npm version patch --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node scripts/update-manifest-version.js",
+    "version:minor": "npm version minor --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node scripts/update-manifest-version.js",
+    "version:major": "npm version major --no-git-tag-version && node -p \"require('./package.json').version\" > VERSION && node scripts/update-manifest-version.js"
   },
   "repository": {
     "type": "git",
