@@ -104,10 +104,15 @@ To modify the extension:
 
 ## Icons
 
-The extension currently references icon files (icon16.png, icon48.png, icon128.png) that need to be created. You can:
-- Create simple icons using any image editor
-- Use a placeholder icon
-- Or remove the icons section from manifest.json temporarily
+The extension includes custom-designed icons in three sizes:
+- `icon16.png` - 16×16 for toolbar
+- `icon48.png` - 48×48 for extension management
+- `icon128.png` - 128×128 for Chrome Web Store
+
+Icons can be regenerated from `source-icon.png` using:
+```bash
+./create-icons-from-source.sh
+```
 
 ## License
 
