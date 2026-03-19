@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Auto Admit for Google Meet",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Automatically admit participants to your Google Meet calls. Save time and never miss anyone waiting in the lobby.",
   "permissions": [
     "activeTab",
