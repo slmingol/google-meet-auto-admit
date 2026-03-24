@@ -8,18 +8,43 @@ const versionDiv = document.getElementById('version');
 const manifest = chrome.runtime.getManifest();
 versionDiv.textContent = `v${manifest.version}`;
 
-// Load saved state
-if (chrome.storage && chrome.storage.sync) {
-  chrome.storage.sync.get(['autoAdmitEnabled'], (result) => {
-    const enabled = result.autoAdmitEnabled !== false; // Default to true
-    toggle.checked = enabled;
-    updateStatus(enabled);
-  });
-} else {
-  // Fallback if storage API not available
-  toggle.checked = true;
-  updateStatus(true);
+// Load saved state and sync with content script
+async function loadState() {
+  try {
+    // First try to get state from content script if on a Meet page
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (tab && tab.url && tab.url.includes('meet.google.com')) {
+      try {
+        const response = await chrome.tabs.sendMessage(tab.id, { action: 'getStatus' });
+        if (response && typeof response.enabled === 'boolean') {
+          toggle.checked = response.enabled;
+          updateStatus(response.enabled);
+          return;
+        }
+      } catch (e) {
+        console.log('Could not get status from content script:', e);
+      }
+    }
+    
+    // Fallback to storage
+    if (chrome.storage && chrome.storage.sync) {
+      const result = await chrome.storage.sync.get(['autoAdmitEnabled']);
+      const enabled = result.autoAdmitEnabled !== false; // Default to true
+      toggle.checked = enabled;
+      updateStatus(enabled);
+    } else {
+      // Final fallback
+      toggle.checked = true;
+      updateStatus(true);
+    }
+  } catch (e) {
+    console.error('Error loading state:', e);
+    toggle.checked = true;
+    updateStatus(true);
+  }
 }
+
+loadState();
 
 // Handle toggle changes
 toggle.addEventListener('change', async () => {
