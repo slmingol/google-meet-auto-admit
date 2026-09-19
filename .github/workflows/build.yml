@@ -71,7 +71,7 @@ jobs:
     
     - name: Create Release (on tag)
       if: startsWith(github.ref, 'refs/tags/v')
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           google-meet-auto-admit-v${{ steps.version.outputs.version }}.zip
